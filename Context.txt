@@ -1,0 +1,6 @@
+I want you to build an amazing mobile optimized website named "I Love You Mimi! Will You Be My Valentines?" 
+The website should have this image as its background: C:\Users\basse\OneDrive\Desktop\Mimi Valentines 2\Photos-3-0011\IMG_7440.JPG
+The website should have a big "Will You Be My Valentines?" with a yes and no button. if user clicks yes then confitti and party emojis pop up, if user clicks no then website makes them try again in funny way until user clicks Yes.
+the website should have a gallery section with these images: C:\Users\basse\OneDrive\Desktop\Mimi Valentines 2\Photos-3-0011 and additonaly, use those images throughout the whole wesbite as needed to make it look amazing
+This is a website is meant to ask a girlfriend if they will be their Valentines, so make nesecary additions to the site.
+Add on to the website whatever you think fits best to make this one of the most amazing websies in the world
