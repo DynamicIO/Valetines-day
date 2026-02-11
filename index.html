@@ -1350,6 +1350,69 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
+        /* ===== MUSIC TOGGLE ===== */
+        .music-toggle {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 9999;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #ff3366, #ff6b8a);
+            border: none;
+            color: #fff;
+            font-size: 20px;
+            cursor: pointer;
+            box-shadow: 0 4px 20px rgba(255, 51, 102, 0.4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.3s ease;
+        }
+
+        .music-toggle:active {
+            transform: scale(0.9);
+        }
+
+        .music-toggle.playing {
+            animation: musicPulse 1s ease-in-out infinite;
+        }
+
+        .music-toggle .bar {
+            display: inline-block;
+            width: 3px;
+            height: 14px;
+            background: #fff;
+            margin: 0 1.5px;
+            border-radius: 2px;
+            vertical-align: middle;
+            transition: height 0.3s ease;
+        }
+
+        .music-toggle.playing .bar {
+            animation: musicBar 0.8s ease-in-out infinite alternate;
+        }
+
+        .music-toggle.playing .bar:nth-child(1) { animation-delay: 0s; }
+        .music-toggle.playing .bar:nth-child(2) { animation-delay: 0.15s; }
+        .music-toggle.playing .bar:nth-child(3) { animation-delay: 0.3s; }
+        .music-toggle.playing .bar:nth-child(4) { animation-delay: 0.45s; }
+
+        .music-toggle:not(.playing) .bar {
+            height: 4px;
+        }
+
+        @keyframes musicBar {
+            0% { height: 4px; }
+            100% { height: 18px; }
+        }
+
+        @keyframes musicPulse {
+            0%, 100% { box-shadow: 0 4px 20px rgba(255, 51, 102, 0.4); }
+            50% { box-shadow: 0 4px 30px rgba(255, 51, 102, 0.8); }
+        }
+
         /* ===== MOBILE RESPONSIVE ===== */
         @media (max-width: 480px) {
             .gallery-grid {
@@ -1510,7 +1573,7 @@
         <div class="envelope-letter-reveal" id="letterReveal">
             <div class="love-letter">
                 <p id="typewriterTarget"></p>
-                <p class="signature" id="signatureEl" style="opacity: 0;">Forever Yours ❤️</p>
+                <p class="signature" id="signatureEl" style="opacity: 0;">Forever by my side ❤️</p>
             </div>
         </div>
     </section>
@@ -1716,17 +1779,29 @@
         <div class="celebration-content">
             <div class="celebration-emojis">🎉🥳💕🎊💖🎉</div>
             <h2 class="celebration-title">She Said Yes!</h2>
-            <p class="celebration-subtitle">I knew you would! 🥰</p>
+            <p class="celebration-subtitle">I knew you would!</p>
             <p class="celebration-message">
-                You just made me the happiest person in the world!<br>
                 Happy Valentine's Day, my love! 💝<br><br>
-                Now scroll through the rest of this website I made just for you! 👇
+                Now scroll through the rest of the site!👇
             </p>
             <button class="btn-yes" style="margin-top: 20px; animation: none;" onclick="closeCelebration()">
                 Continue Exploring 💖
             </button>
         </div>
     </div>
+
+    <!-- BACKGROUND MUSIC -->
+    <audio id="bgMusic" loop preload="auto">
+        <source src="0210.MP3" type="audio/mpeg">
+    </audio>
+
+    <!-- MUSIC TOGGLE -->
+    <button class="music-toggle" id="musicToggle" onclick="toggleMusic()" aria-label="Toggle music">
+        <span class="bar"></span>
+        <span class="bar"></span>
+        <span class="bar"></span>
+        <span class="bar"></span>
+    </button>
 
     <!-- CONFETTI CONTAINER -->
     <div class="confetti-container" id="confettiContainer"></div>
@@ -1753,6 +1828,56 @@
                 document.getElementById('preloader').classList.add('hidden');
             }, 1800);
         });
+
+        // ===== BACKGROUND MUSIC =====
+        const bgMusic = document.getElementById('bgMusic');
+        const musicToggle = document.getElementById('musicToggle');
+        let musicPlaying = false;
+
+        function playMusic() {
+            bgMusic.play().then(() => {
+                musicPlaying = true;
+                musicToggle.classList.add('playing');
+            }).catch(() => {
+                // Autoplay blocked — will retry on first interaction
+            });
+        }
+
+        function toggleMusic() {
+            vibrate(10);
+            if (musicPlaying) {
+                bgMusic.pause();
+                musicPlaying = false;
+                musicToggle.classList.remove('playing');
+            } else {
+                bgMusic.play().then(() => {
+                    musicPlaying = true;
+                    musicToggle.classList.add('playing');
+                });
+            }
+        }
+
+        // Try to autoplay immediately
+        window.addEventListener('load', () => {
+            bgMusic.volume = 0.5;
+            playMusic();
+        });
+
+        // If autoplay was blocked, start on the very first user interaction
+        function startMusicOnInteraction() {
+            if (!musicPlaying) {
+                bgMusic.volume = 0.5;
+                playMusic();
+            }
+            // Remove all listeners after first successful play
+            document.removeEventListener('click', startMusicOnInteraction);
+            document.removeEventListener('touchstart', startMusicOnInteraction);
+            document.removeEventListener('scroll', startMusicOnInteraction);
+        }
+
+        document.addEventListener('click', startMusicOnInteraction, { once: false });
+        document.addEventListener('touchstart', startMusicOnInteraction, { once: false });
+        document.addEventListener('scroll', startMusicOnInteraction, { once: false });
 
         // ===== FLOATING HEARTS =====
         const heartEmojis = ['💕', '❤️', '💖', '💗', '💘', '💝', '🌹', '✨', '💜', '🩷'];
@@ -2053,7 +2178,7 @@
         }
 
         // ===== TYPEWRITER =====
-        const letterText = `My Dearest Mimi,\n\nEvery single day with you feels like Valentine's Day. Your smile lights up my entire world, and your laugh is my favorite sound in the universe. You make even the most ordinary moments feel extraordinary.\n\nI fell in love with you, and I fall more in love with you every single day. You are my best friend, my greatest adventure, and the love of my life. I can't imagine doing this life without you by my side.\n\nHere's to us, to our love, and to a million more moments together. 💕`;
+        const letterText = `My Dearest Mimi,\n\nEvery single day with you feels like Valentine's Day. Your smile lights up, and your laugh is my favorite. You make even the most ordinary moments feel extraordinary.\n\nI fell in love with you, and I fall more in love with you every single day. You are my best friend, my greatest adventure, and my ultimate love. I think I want you by my side for life.\n\nHere's to us, to our love, and to a million more moments together. 💕`;
 
         let typewriterStarted = false;
 
