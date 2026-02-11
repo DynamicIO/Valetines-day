@@ -3,7 +3,41 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>I Love You Mimi! Will You Be My Valentines?</title>
+    <title>I Love You Mimi! 💕 Will You Be My Valentine?</title>
+
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="A special Valentine's Day surprise made with love. Mimi, will you be my Valentine? 💕🌹">
+    <meta name="keywords" content="Valentine, Love, Mimi, Valentine's Day 2026, Be My Valentine">
+    <meta name="author" content="With Love">
+    <meta name="robots" content="noindex, nofollow">
+    <meta name="theme-color" content="#ff3366">
+
+    <!-- Open Graph / Facebook / Messenger / iMessage / WhatsApp / SMS -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="💕 I Love You Mimi! Will You Be My Valentine? 💕">
+    <meta property="og:description" content="Someone made you something really special for Valentine's Day... Tap to see! 🌹💝">
+    <meta property="og:image" content="Photos-3-0011/IMG_7440.JPG">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="A Valentine's Day surprise for Mimi">
+    <meta property="og:locale" content="en_US">
+    <meta property="og:site_name" content="I Love You Mimi">
+
+    <!-- Twitter Card / X -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="💕 I Love You Mimi! Will You Be My Valentine? 💕">
+    <meta name="twitter:description" content="Someone made you something really special for Valentine's Day... Tap to see! 🌹💝">
+    <meta name="twitter:image" content="Photos-3-0011/IMG_7440.JPG">
+    <meta name="twitter:image:alt" content="A Valentine's Day surprise for Mimi">
+
+    <!-- Apple / iOS -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="I Love You Mimi 💕">
+
+    <!-- Microsoft Tile -->
+    <meta name="msapplication-TileColor" content="#ff3366">
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Playfair+Display:wght@400;700;900&family=Quicksand:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
@@ -314,10 +348,13 @@
         .scroll-cta {
             position: absolute;
             bottom: 30px;
-            left: 50%;
-            transform: translateX(-50%);
+            left: 0;
+            right: 0;
             z-index: 5;
             text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
             animation: fadeInUp 1s ease 2s both;
         }
 
@@ -1406,7 +1443,7 @@
                 <span>💖</span>
             </div>
             <h1 class="hero-title">I Love You Mimi!</h1>
-            <p class="hero-subtitle">Every moment with you is a beautiful dream I never want to wake up from</p>
+            <p class="hero-subtitle">Every moment with you is as beautiful as you are!</p>
         </div>
         <div class="scroll-cta">
             <p>Scroll Down</p>
@@ -1491,7 +1528,7 @@
             </div>
             <div class="reason-card">
                 <div class="reason-number">2</div>
-                <p class="reason-text">The way you laugh — it's the most contagious thing in the world</p>
+                <p class="reason-text">The way you laugh — is contagious and I love it!</p>
             </div>
             <div class="reason-card">
                 <div class="reason-number">3</div>
@@ -1499,7 +1536,7 @@
             </div>
             <div class="reason-card">
                 <div class="reason-number">4</div>
-                <p class="reason-text">Your incredible kindness and the way you care about everyone</p>
+                <p class="reason-text">Your incredible kindness (sometimes) and the way you care about everyone</p>
             </div>
             <div class="reason-card">
                 <div class="reason-number">5</div>
@@ -1696,6 +1733,20 @@
     <div class="celebration-heart-rain" id="heartRain"></div>
 
     <script>
+        // ===== HAPTIC FEEDBACK =====
+        function vibrate(pattern) {
+            if (navigator.vibrate) {
+                navigator.vibrate(pattern);
+            }
+        }
+        // Patterns:
+        // Light tap: 10
+        // Medium tap: 30
+        // Heavy tap: 50
+        // Success burst: [50, 30, 50, 30, 100]
+        // Error/No buzz: [30, 20, 30]
+        // Celebration: [50, 30, 80, 30, 50, 30, 120]
+
         // ===== PRELOADER =====
         window.addEventListener('load', () => {
             setTimeout(() => {
@@ -1756,10 +1807,12 @@
         });
 
         // ===== COUNTDOWN TIMER =====
-        const valentinesDay = new Date('February 14, 2026 00:00:00').getTime();
+        // Valentine's Day midnight in Egypt (GMT+2 / Eastern European Standard Time)
+        // Feb 14 00:00 in GMT+2 = Feb 13 22:00 UTC
+        const valentinesDay = Date.UTC(2026, 1, 13, 22, 0, 0); // months are 0-indexed
 
         function updateCountdown() {
-            const now = new Date().getTime();
+            const now = Date.now();
             const diff = valentinesDay - now;
 
             if (diff <= 0) {
@@ -1818,6 +1871,10 @@
         const buttonsContainer = document.getElementById('buttonsContainer');
 
         function handleNo() {
+            // Haptic: escalating buzz the more they press No
+            const buzzIntensity = Math.min(noClickCount * 10 + 20, 100);
+            vibrate([buzzIntensity, 20, buzzIntensity]);
+
             noMessage.style.animation = 'none';
             noMessage.offsetHeight;
             noMessage.style.animation = 'fadeIn 0.5s ease';
@@ -1874,6 +1931,7 @@
 
             // Screen shake on certain clicks
             if (noClickCount % 3 === 0) {
+                vibrate([40, 20, 60, 20, 40]); // Heavy shake haptic
                 document.body.classList.add('shake');
                 setTimeout(() => document.body.classList.remove('shake'), 600);
             }
@@ -1893,6 +1951,9 @@
 
         // ===== YES BUTTON LOGIC =====
         function handleYes() {
+            // Haptic: celebration burst pattern
+            vibrate([50, 30, 80, 30, 50, 30, 120]);
+
             // Screen shake
             document.body.classList.add('shake');
             setTimeout(() => document.body.classList.remove('shake'), 600);
@@ -1913,6 +1974,7 @@
         }
 
         function closeCelebration() {
+            vibrate(15); // Soft tap
             document.getElementById('celebrationOverlay').classList.remove('active');
             if (btnNo) btnNo.style.display = 'none';
             noMessage.textContent = "💕 You said YES! 💕";
@@ -1972,6 +2034,9 @@
         function openEnvelope() {
             if (envelopeOpened) return;
             envelopeOpened = true;
+
+            // Haptic: soft open feel
+            vibrate([20, 40, 30]);
 
             const envelope = document.getElementById('envelope');
             envelope.classList.add('opened');
@@ -2063,6 +2128,7 @@
 
         // ===== LIGHTBOX =====
         function openLightbox(item) {
+            vibrate(10); // Light tap
             const img = item.querySelector('img');
             const lightbox = document.getElementById('lightbox');
             document.getElementById('lightboxImg').src = img.src;
@@ -2071,6 +2137,7 @@
         }
 
         function closeLightbox() {
+            vibrate(10); // Light tap
             document.getElementById('lightbox').classList.remove('active');
             document.body.style.overflow = '';
         }
@@ -2165,6 +2232,7 @@
                 const now = Date.now();
                 if (now - lastTap < 300) {
                     e.preventDefault();
+                    vibrate([30, 20, 30]); // Double-tap haptic
                     const heart = document.createElement('span');
                     heart.textContent = '❤️';
                     heart.style.cssText = `
