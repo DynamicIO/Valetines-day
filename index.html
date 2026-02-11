@@ -922,6 +922,158 @@
             50% { opacity: 0; }
         }
 
+        /* ===== BOUQUET SECTION ===== */
+        .bouquet-section {
+            padding: 80px 20px;
+            background: linear-gradient(180deg, #1a0a0a 0%, #2a0515 50%, #1a0a0a 100%);
+            text-align: center;
+        }
+
+        .bouquet {
+            max-width: 360px;
+            margin: 0 auto;
+        }
+
+        .bouquet-vase {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .bouquet-flowers {
+            position: relative;
+            width: 260px;
+            height: 200px;
+        }
+
+        .flower {
+            position: absolute;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            transform-origin: bottom center;
+        }
+
+        .flower-head {
+            font-size: 36px;
+            filter: drop-shadow(0 4px 8px rgba(255, 51, 102, 0.3));
+            animation: flowerSway 3s ease-in-out infinite;
+        }
+
+        .stem {
+            width: 3px;
+            height: 60px;
+            background: linear-gradient(180deg, #4a8c3f, #2d6b28);
+            border-radius: 2px;
+            margin-top: -4px;
+        }
+
+        /* Position each flower in the arrangement */
+        .flower-1  { left: 50%; top: 0;    transform: translateX(-50%) rotate(-2deg); }
+        .flower-2  { left: 30%; top: 5px;  transform: rotate(-15deg); }
+        .flower-3  { left: 65%; top: 5px;  transform: rotate(12deg); }
+        .flower-4  { left: 15%; top: 18px; transform: rotate(-25deg); }
+        .flower-5  { left: 78%; top: 18px; transform: rotate(22deg); }
+        .flower-6  { left: 40%; top: 12px; transform: rotate(-8deg); }
+        .flower-7  { left: 58%; top: 15px; transform: rotate(8deg); }
+        .flower-8  { left: 8%;  top: 35px; transform: rotate(-32deg); }
+        .flower-9  { left: 85%; top: 35px; transform: rotate(30deg); }
+        .flower-10 { left: 22%; top: 28px; transform: rotate(-18deg); }
+        .flower-11 { left: 72%; top: 28px; transform: rotate(18deg); }
+
+        .flower-1 .flower-head  { animation-delay: 0s; }
+        .flower-2 .flower-head  { animation-delay: 0.3s; }
+        .flower-3 .flower-head  { animation-delay: 0.6s; }
+        .flower-4 .flower-head  { animation-delay: 0.2s; }
+        .flower-5 .flower-head  { animation-delay: 0.5s; }
+        .flower-6 .flower-head  { animation-delay: 0.8s; }
+        .flower-7 .flower-head  { animation-delay: 0.1s; }
+        .flower-8 .flower-head  { animation-delay: 0.7s; }
+        .flower-9 .flower-head  { animation-delay: 0.4s; }
+        .flower-10 .flower-head { animation-delay: 0.9s; }
+        .flower-11 .flower-head { animation-delay: 0.35s; }
+
+        @keyframes flowerSway {
+            0%, 100% { transform: rotate(0deg); }
+            25% { transform: rotate(4deg); }
+            75% { transform: rotate(-4deg); }
+        }
+
+        .bouquet-leaves {
+            position: relative;
+            width: 200px;
+            height: 30px;
+            margin-top: -20px;
+        }
+
+        .leaf {
+            position: absolute;
+            font-size: 28px;
+            top: 0;
+        }
+
+        .leaf-left     { left: 15%;  transform: rotate(-30deg); }
+        .leaf-right    { right: 15%; transform: scaleX(-1) rotate(-30deg); }
+        .leaf-left-2   { left: 5%;   transform: rotate(-45deg); opacity: 0.7; }
+        .leaf-right-2  { right: 5%;  transform: scaleX(-1) rotate(-45deg); opacity: 0.7; }
+
+        .vase {
+            position: relative;
+            margin-top: -8px;
+        }
+
+        .vase-body {
+            width: 100px;
+            height: 90px;
+            background: linear-gradient(135deg, rgba(255, 107, 138, 0.2), rgba(255, 107, 138, 0.08));
+            border: 2px solid rgba(255, 107, 138, 0.25);
+            border-radius: 10px 10px 30px 30px;
+            backdrop-filter: blur(10px);
+            position: relative;
+        }
+
+        .vase-body::before {
+            content: '';
+            position: absolute;
+            top: -6px;
+            left: -6px;
+            right: -6px;
+            height: 12px;
+            background: linear-gradient(135deg, rgba(255, 107, 138, 0.3), rgba(255, 107, 138, 0.15));
+            border: 2px solid rgba(255, 107, 138, 0.25);
+            border-radius: 6px;
+        }
+
+        .vase-ribbon {
+            position: absolute;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 24px;
+        }
+
+        .bouquet-message {
+            font-family: 'Dancing Script', cursive;
+            font-size: 18px;
+            color: #ff9bb5;
+            margin-top: 30px;
+            line-height: 1.5;
+        }
+
+        @media (max-width: 480px) {
+            .bouquet-flowers {
+                width: 220px;
+                height: 170px;
+            }
+            .flower-head {
+                font-size: 30px;
+            }
+            .stem {
+                height: 50px;
+            }
+        }
+
         /* ===== REASONS SECTION ===== */
         .reasons-section {
             padding: 80px 20px;
@@ -1484,6 +1636,7 @@
         <a href="#countdown"><span class="tooltip">Countdown</span></a>
         <a href="#question"><span class="tooltip">The Question</span></a>
         <a href="#loveLetter"><span class="tooltip">Love Letter</span></a>
+        <a href="#bouquet"><span class="tooltip">Bouquet</span></a>
         <a href="#reasons"><span class="tooltip">Reasons</span></a>
         <a href="#loveMeter"><span class="tooltip">Love Meter</span></a>
         <a href="#gallery"><span class="tooltip">Gallery</span></a>
@@ -1575,6 +1728,42 @@
                 <p id="typewriterTarget"></p>
                 <p class="signature" id="signatureEl" style="opacity: 0;">Forever by my side ❤️</p>
             </div>
+        </div>
+    </section>
+
+    <!-- ===== BOUQUET ===== -->
+    <section class="bouquet-section" id="bouquet">
+        <div class="section-header reveal">
+            <h2>A Bouquet For You 💐</h2>
+            <div class="divider">🌹</div>
+        </div>
+        <div class="bouquet reveal" id="bouquetArrangement">
+            <div class="bouquet-vase">
+                <div class="bouquet-flowers">
+                    <div class="flower flower-1"><span class="flower-head">🌹</span><div class="stem"></div></div>
+                    <div class="flower flower-2"><span class="flower-head">🌷</span><div class="stem"></div></div>
+                    <div class="flower flower-3"><span class="flower-head">🌹</span><div class="stem"></div></div>
+                    <div class="flower flower-4"><span class="flower-head">🌸</span><div class="stem"></div></div>
+                    <div class="flower flower-5"><span class="flower-head">🌹</span><div class="stem"></div></div>
+                    <div class="flower flower-6"><span class="flower-head">🌷</span><div class="stem"></div></div>
+                    <div class="flower flower-7"><span class="flower-head">🌺</span><div class="stem"></div></div>
+                    <div class="flower flower-8"><span class="flower-head">🌹</span><div class="stem"></div></div>
+                    <div class="flower flower-9"><span class="flower-head">🌸</span><div class="stem"></div></div>
+                    <div class="flower flower-10"><span class="flower-head">💮</span><div class="stem"></div></div>
+                    <div class="flower flower-11"><span class="flower-head">🌹</span><div class="stem"></div></div>
+                </div>
+                <div class="bouquet-leaves">
+                    <span class="leaf leaf-left">🌿</span>
+                    <span class="leaf leaf-right">🌿</span>
+                    <span class="leaf leaf-left-2">🍃</span>
+                    <span class="leaf leaf-right-2">🍃</span>
+                </div>
+                <div class="vase">
+                    <div class="vase-body"></div>
+                    <div class="vase-ribbon">🎀</div>
+                </div>
+            </div>
+            <p class="bouquet-message">Next Valentine's Day, I'll give you a real bouquet and well spend it together! 🌹</p>
         </div>
     </section>
 
@@ -1782,7 +1971,7 @@
             <p class="celebration-subtitle">I knew you would!</p>
             <p class="celebration-message">
                 Happy Valentine's Day, my love! 💝<br><br>
-                Now scroll through the rest of the site!👇
+                Now scroll through the rest of the site for you're flowers and letter!👇
             </p>
             <button class="btn-yes" style="margin-top: 20px; animation: none;" onclick="closeCelebration()">
                 Continue Exploring 💖
